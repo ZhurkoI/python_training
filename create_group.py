@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
-import unittest
+import unittest, time, re
 
 class TestAddGroup(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
+        self.base_url = "https://www.katalon.com/"
+        self.verificationErrors = []
+        self.accept_next_alert = True
     
     def test_add_group(self):
         driver = self.driver
@@ -31,6 +37,9 @@ class TestAddGroup(unittest.TestCase):
         driver.find_element_by_name("submit").click()
         driver.find_element_by_link_text("group page").click()
         driver.find_element_by_link_text("Logout").click()
+        driver.find_element_by_id("UserName").click()
+        driver.find_element_by_id("Password").click()
+        driver.find_element_by_id("login-button").click()
     
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
@@ -55,6 +64,7 @@ class TestAddGroup(unittest.TestCase):
     
     def tearDown(self):
         self.driver.quit()
+        self.assertEqual([], self.verificationErrors)
 
 if __name__ == "__main__":
     unittest.main()
