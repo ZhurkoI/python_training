@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
-import unittest, time, re
+import unittest
 
 class TestAddGroup(unittest.TestCase):
     def setUp(self):
@@ -37,10 +34,7 @@ class TestAddGroup(unittest.TestCase):
         driver.find_element_by_name("submit").click()
         driver.find_element_by_link_text("group page").click()
         driver.find_element_by_link_text("Logout").click()
-        driver.find_element_by_id("UserName").click()
-        driver.find_element_by_id("Password").click()
-        driver.find_element_by_id("login-button").click()
-    
+
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
         except NoSuchElementException as e: return False
@@ -64,7 +58,6 @@ class TestAddGroup(unittest.TestCase):
     
     def tearDown(self):
         self.driver.quit()
-        self.assertEqual([], self.verificationErrors)
 
 if __name__ == "__main__":
     unittest.main()
