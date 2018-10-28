@@ -1,22 +1,12 @@
 # -*- coding: utf-8 -*-
-import pytest
 from model.group import Group
-from fixture.application import Application
 
-@pytest.fixture # так помечается метод, создающий фикстуру
-def app(request):
-    # функция для инициализации и разрушения фикстуры
-    # Для разрушения фикстуры в функцию инициализации передается специальный параметр request,
-    # у которого есть особый метод addfinalizer, которому нужно передать функцию, к-ю фреймворк в нужный
-    # момент вызывает для разрушения фикстуры
-    fixture = Application()
-    request.addfinalizer(fixture.destroy)
-    return fixture
 
 def test_add_group(app): # в тестовые методы в качестве параметра передается фикстура
     app.session.login(username="admin", password="secret")
     app.group.create(Group(name="group 2", header="qwerty", footer="asdf"))
     app.session.logout()
+
 
 def test_add_empty_group(app):
     app.session.login(username="admin", password="secret")
