@@ -2,7 +2,9 @@ from selenium import webdriver
 from fixture.session import SessionHelper
 from fixture.group import GroupHelper
 
-class Application():
+
+class Application:
+    # В данном классе описываются вспомогательные методы
 
     def __init__(self):
         # creating the fixture
